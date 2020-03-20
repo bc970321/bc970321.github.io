@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      排序算法总结 | Bc&#39;s Club
+      linux三剑客之grep的使用 | Bc&#39;s Club
     
   </title>
   <meta name="author" content="bc">
@@ -154,7 +154,7 @@
 	<!-- Page title -->
 	<p>
 		
-			当前文章&nbsp;:&nbsp;《排序算法总结》
+			当前文章&nbsp;:&nbsp;《linux三剑客之grep的使用》
 		
 	</p>
 
@@ -210,6 +210,18 @@
 		插件作者：KELEN
 		插件来源: https://github.com/KELEN/katelog
 -->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
 	 
 
 <div class="layout-post">
@@ -217,8 +229,8 @@
 	<div class="article-title">
 		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 		
-	<a href="/2020/03/12/排序算法总结/" itemprop="url">
-		排序算法总结
+	<a href="/2019/09/02/linux三剑客之grep的使用/" itemprop="url">
+		linux三剑客之grep的使用
 	</a>
 
 	</div>
@@ -231,9 +243,9 @@
 
 	发布于
 
-	<a href="/2020/03/12/排序算法总结/" itemprop="url">
-		<time datetime="2020-03-12T14:23:01.000Z" itemprop="datePublished">
-	  		2020-03-12
+	<a href="/2019/09/02/linux三剑客之grep的使用/" itemprop="url">
+		<time datetime="2019-09-02T08:34:08.000Z" itemprop="datePublished">
+	  		2019-09-02
 	  </time>
 	</a>
 	&nbsp;
@@ -249,9 +261,9 @@
 
 	更新于
 
-	<a href="/2020/03/12/排序算法总结/" itemprop="url">
-		<time datetime="2020-03-12T14:23:01.000Z" itemprop="dateUpdated">
-	  		2020-03-12
+	<a href="/2019/09/02/linux三剑客之grep的使用/" itemprop="url">
+		<time datetime="2019-09-02T08:34:08.000Z" itemprop="dateUpdated">
+	  		2020-03-20
 	  </time>
 	</a> 
 
@@ -260,7 +272,13 @@
 		</span>
 		<span>
 			<i class="fa fa-tags"></i>
-					
+			
+	
+		<a href="/tags/note/" class=" ">
+			note
+		</a>
+	
+		
 		</span>
 		
 		
@@ -270,11 +288,44 @@
 	</div>
 
 	<div class="article-content" id="article-content">
-		<p>test</p>
+		<blockquote>
+<p>部分内容源自网络和grep帮助信息。</p>
+</blockquote>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep [参数选项] [模式串] [文件或目录]</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用参数选项说明"><a href="#常用参数选项说明" class="headerlink" title="常用参数选项说明"></a>常用参数选项说明</h2><ul>
+<li><p><code>-o</code>只显示与模式串匹配的内容。</p>
+</li>
+<li><p><code>-E</code> 使用扩展正则表达式。</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat index.html | grep -Eo &apos;&lt;img\ [^&gt;]*&apos;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>-v</code>显示与模式串不匹配内容所在的整行内容。</p>
+</li>
+<li><p><code>-w</code>只匹配整个单词，也就说只有独立的整个单词斗鱼模式串匹配才算。</p>
+</li>
+<li><p><code>-x</code>只匹配整行，也就说只有整行都与模式串匹配才算。</p>
+</li>
+<li><p><code>-i</code>忽略大小写。</p>
+</li>
+<li><p><code>-H</code>显示每个符合样式字符串所在行所属的文件名。</p>
+</li>
+<li><p><code>-n</code>显示行号。</p>
+</li>
+<li><p><code>-I</code>忽略二进制文件。</p>
+</li>
+</ul>
+<hr>
+<p>更多用法请查看man手册或<code>grep --help</code> </p>
 	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+	<div id="current-post-cover" data-scr="https://w.wallhaven.cc/full/39/wallhaven-392lk9.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -289,8 +340,12 @@
 	<span>
 		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
 		
+			<a href="/2019/09/02/Linux三剑客之awk的使用/" title="Linux三剑客之awk的使用" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2020/03/12/BASH杂记-2/" title="BASH杂记-2" rel="next">
+		
+			<a href="/2019/09/02/MYSQL-笔记1/" title="MYSQL-笔记1" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -308,52 +363,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/03/12/BASH杂记-2/" title="BASH杂记-2">
-								BASH杂记-2			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								三月 12日, 2020				
-							</p>
-							<p class="relate-post-content">
-								
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/03/12/BASH杂记-2/" title="BASH杂记-2">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="BASH杂记-2"/>
-							</a>
-						</div>
-					</li>											
-			
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/02/22/BASH杂记/" title="BASH杂记">
-								BASH杂记			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 22日, 2020				
-							</p>
-							<p class="relate-post-content">
-								
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/02/22/BASH杂记/" title="BASH杂记">				
-								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="BASH杂记"/>
-							</a>
-						</div>
-					</li>											
-			
 			
 					<li>
 						<div class="relate-post-text">
@@ -407,42 +416,28 @@ github最基本的使用...
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/09/11/Linux常用命令/" title="Linux常用命令">
-								Linux常用命令			
+							<a class="relate-post-title" href="/2019/09/02/进程、线程及共享内存学习笔记/" title="进程、线程及共享内存学习笔记">
+								进程、线程及共享内存学习笔记			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								九月 11日, 2019				
+								九月 2日, 2019				
 							</p>
 							<p class="relate-post-content">
-								
-Linux的常用命令
-参考
+								进程、线程及共享内存学习笔记
+系统环境：deepin Linux，语言环境：Linux C欢迎大家转载，转载请注明出处，谢谢！
 
 
-linw7的github
-《鸟哥的Linux私房菜》
+理论基础：
 
-
-
-一.文件管理
-文件类型
-文件权限
-更改权限：chmod
-更改用户：chown
-更改组别：chgrp
-
-
-用户管理
-切换用户：su
-临时切换：...
+进程：计算机上每个执行的活动，运行一个可执行程序是一个进程，打开一个软件是一个进程，打开...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/09/11/Linux常用命令/" title="Linux常用命令">				
+							<a href="/2019/09/02/进程、线程及共享内存学习笔记/" title="进程、线程及共享内存学习笔记">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Linux常用命令"/>
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/ym/wallhaven-ym233x.jpg" alt="进程、线程及共享内存学习笔记"/>
 							</a>
 						</div>
 					</li>											
@@ -450,8 +445,8 @@ linw7的github
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/09/02/HDU-1276/" title="HDU-1276">
-								HDU-1276			
+							<a class="relate-post-title" href="/2019/09/02/Linux常见配置文件/" title="Linux常见配置文件">
+								Linux常见配置文件			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
@@ -459,15 +454,19 @@ linw7的github
 							</p>
 							<p class="relate-post-content">
 								
-题目描述
-某部队进行新兵队列训练，将新兵从一开始按顺序依次编号，并排成一行横队，训练的规则如下：从头开始一至二报数，凡报到二的出列，剩下的向小序号方向靠拢，再从头开始进行一至三报数，凡报到三的出列，剩下的向小序号方向靠拢，继续从头开...
+转载自CoderZhuang，对CoderZhuang先生的博客进行补充和整理。
+
+
+/etc 配置文件
+/etc/passwd 用户数据库，其中的域给出了用户名、真实姓名、家目录、加密口令和用户的其他信息 
+/etc/group ...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/09/02/HDU-1276/" title="HDU-1276">				
+							<a href="/2019/09/02/Linux常见配置文件/" title="Linux常见配置文件">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/ym/wallhaven-ym28eg.jpg" alt="HDU-1276"/>
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/2e/wallhaven-2eod59.jpg" alt="Linux常见配置文件"/>
 							</a>
 						</div>
 					</li>											
@@ -475,8 +474,8 @@ linw7的github
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/09/02/CPU信息获取/" title="CPU信息获取">
-								CPU信息获取			
+							<a class="relate-post-title" href="/2019/09/02/deepin系统使用笔记/" title="deepin系统使用笔记">
+								deepin系统使用笔记			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
@@ -484,16 +483,19 @@ linw7的github
 							</p>
 							<p class="relate-post-content">
 								
-准备知识
 
-/proc文件系统是一个伪文件系统，该文件系统中存储着内核控制相关信息，通俗点说就是这个目录是虚拟的，它受内核直接控制，存储与内核控制相关的数据，与其他目录不同的是/proc目录不是真实存储在硬盘中的，它的数据存储在内存...
+如果你是小白用户并且没有人在旁边指导，那么建议不要自行更改本文给出的命令。
+图形界面相关的东西自行探索。
+
+
+deepin系统安装后推荐配置sudo apt-get install -y git wget curl openssh...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/09/02/CPU信息获取/" title="CPU信息获取">				
+							<a href="/2019/09/02/deepin系统使用笔记/" title="deepin系统使用笔记">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/wy/wallhaven-wyd5jx.jpg" alt="CPU信息获取"/>
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/j5/wallhaven-j5yerq.jpg" alt="deepin系统使用笔记"/>
 							</a>
 						</div>
 					</li>											
@@ -501,8 +503,8 @@ linw7的github
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/09/02/POJ-1979/" title="POJ-1979">
-								POJ-1979			
+							<a class="relate-post-title" href="/2019/09/02/Linux三剑客之awk的使用/" title="Linux三剑客之awk的使用">
+								Linux三剑客之awk的使用			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
@@ -510,14 +512,21 @@ linw7的github
 							</p>
 							<p class="relate-post-content">
 								
-原题目：DescriptionThere is a rectangular room, covered with square tiles. Each tile is colored either red or black. A m...
+awk 是一款极其强大的文本处理工具，其语言于c语言的语法极其相似，上手很容易 内置变量与运算符数据来自RUNOOB
+
+
+简单用法
+12awk [参数] 'awk代码'awk [参数] -f awk脚本文件
+
+常用参数
+123456...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/09/02/POJ-1979/" title="POJ-1979">				
+							<a href="/2019/09/02/Linux三剑客之awk的使用/" title="Linux三剑客之awk的使用">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/wy/wallhaven-wydj37.jpg" alt="POJ-1979"/>
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/g8/wallhaven-g8md6l.jpg" alt="Linux三剑客之awk的使用"/>
 							</a>
 						</div>
 					</li>											
@@ -525,8 +534,8 @@ linw7的github
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/09/02/Codeforces-787a/" title="Codeforces-787a">
-								Codeforces-787a			
+							<a class="relate-post-title" href="/2019/09/02/MYSQL-笔记1/" title="MYSQL-笔记1">
+								MYSQL-笔记1			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
@@ -534,20 +543,25 @@ linw7的github
 							</p>
 							<p class="relate-post-content">
 								
-题目传送
+  在MYSQL中查询操作涉及内容
+
+[TOC]
+function
+  对待查询字段在待查找表中出现的若干记录中的函数参数中指定的字段进行某些操作。
 
 
-题目思路：拓展欧几里德：$$ax+b=cy+d; &lt;=&gt; ax+cy=d-b;$$
+COUNT ： 统计
+SUM ： 求和
+AVG ： 平均数
 
-代码：
-12345678910111213141516171819202122232425262728293031323...
+more abo...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/09/02/Codeforces-787a/" title="Codeforces-787a">				
+							<a href="/2019/09/02/MYSQL-笔记1/" title="MYSQL-笔记1">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/83/wallhaven-839voo.jpg" alt="Codeforces-787a"/>
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/6k/wallhaven-6kyk9w.jpg" alt="MYSQL-笔记1"/>
 							</a>
 						</div>
 					</li>											
@@ -555,23 +569,69 @@ linw7的github
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2019/09/02/HDU-1072/" title="HDU-1072">
-								HDU-1072			
+							<a class="relate-post-title" href="/2020/03/12/排序算法总结/" title="排序算法总结">
+								排序算法总结			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								九月 2日, 2019				
+								三月 12日, 2020				
 							</p>
 							<p class="relate-post-content">
-								
-题目描述：首先输入一个N；代表测试数据的个数;然后每个测试数据的开头第一行输入一个n和一个命令（FIFO或FILO&lt;就是先进先出或先进后出&gt;）然后是该测试数据的n行，每行包括“IN”加一个数字（代表入栈或入队）或者一个“...
+								test
+
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2019/09/02/HDU-1072/" title="HDU-1072">				
+							<a href="/2020/03/12/排序算法总结/" title="排序算法总结">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="https://w.wallhaven.cc/full/kw/wallhaven-kwlwy6.jpg" alt="HDU-1072"/>
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="排序算法总结"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/03/12/BASH杂记-2/" title="BASH杂记-2">
+								BASH杂记-2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 12日, 2020				
+							</p>
+							<p class="relate-post-content">
+								
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/03/12/BASH杂记-2/" title="BASH杂记-2">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="BASH杂记-2"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/02/22/BASH杂记/" title="BASH杂记">
+								BASH杂记			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2020				
+							</p>
+							<p class="relate-post-content">
+								
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/02/22/BASH杂记/" title="BASH杂记">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="BASH杂记"/>
 							</a>
 						</div>
 					</li>											
