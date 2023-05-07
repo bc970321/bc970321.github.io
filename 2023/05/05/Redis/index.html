@@ -33,13 +33,115 @@
         <hr>
     </div>
     <div class="post-content">
-        <h1 id="一、基础"><a href="#一、基础" class="headerlink" title="一、基础"></a>一、基础</h1><h2 id="1-什么是Redis"><a href="#1-什么是Redis" class="headerlink" title="1 什么是Redis"></a>1 什么是Redis</h2><ol>
+        <div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#yi-ji-chu">一、基础</a><ul>
+<li><a href="#1-shi-me-shi-redis">1 什么是Redis</a></li>
+<li><a href="#2-redis-wei-shi-me-zhe-me-kuai">2 Redis为什么这么快</a></li>
+<li><a href="#3-wei-shi-me-yao-yong-redis">3 为什么要用Redis</a><ul>
+<li><a href="#3-1-redis-gua-he-de-chang-jing">3.1 redis适合的场景</a></li>
+<li><a href="#3-2-redis-chang-jian-de-gong-neng">3.2 redis常见的功能</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#er-nei-cun">二、内存</a><ul>
+<li><a href="#1-she-zhi-guo-qi-shi-jian">1 设置过期时间</a></li>
+<li><a href="#2-redis-ru-he-pan-duan-shu-ju-shi-fou-guo-qi">2 Redis如何判断数据是否过期</a></li>
+<li><a href="#3-guo-qi-shu-ju-de-shan-chu-ce-lue">3 过期数据的删除策略</a></li>
+<li><a href="#4-nei-cun-tao-tai-ji-zhi">4 内存淘汰机制</a></li>
+<li><a href="#5-nei-cun-sui-pian">5 内存碎片</a></li>
+</ul>
+</li>
+<li><a href="#san-xing-neng-you-hua">三、性能优化</a><ul>
+<li><a href="#1-xing-neng-ping-jing">1 性能瓶颈</a></li>
+<li><a href="#2-nei-cun-you-hua">2 内存优化</a><ul>
+<li><a href="#2-1-ru-he-jie-jue-da-key-de-wen-ti">2.1 如何解决大Key的问题</a></li>
+<li><a href="#2-2-she-zhi-ziplist-he-hashtable">2.2 设置ziplist和hashtable</a></li>
+</ul>
+</li>
+<li><a href="#3-wang-luo-you-hua">3 网络优化</a><ul>
+<li><a href="#3-1-wang-luo-you-hua-fang-fa">3.1 网络优化方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#si-xian-cheng-mo-xing">四、线程模型</a><ul>
+<li><a href="#1-dan-xian-cheng-mo-xing">1 单线程模型</a></li>
+<li><a href="#2-xin-ban-ben-duo-xian-cheng">2 新版本多线程</a></li>
+</ul>
+</li>
+<li><a href="#wu-gao-bing-fa">五、高并发</a><ul>
+<li><a href="#1-gao-bing-fa-chang-jing-xia-shi-yong-huan-cun-xu-yao-zhu-yi-na-xie-wen-ti">1 高并发场景下使用缓存需要注意哪些问题</a></li>
+<li><a href="#2-gao-bing-fa-xia-shi-yong-gui-fan">2 高并发下使用规范</a><ul>
+<li><a href="#2-1-jian-zhi-she-ji">2.1 键值设计</a></li>
+<li><a href="#2-2-ming-ling-shi-yong">2.2 命令使用</a></li>
+<li><a href="#2-3-shi-yong-gui-fan">2.3 使用规范</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#liu-chi-jiu-hua">六、持久化</a><ul>
+<li><a href="#1-rdb">1 RDB</a><ul>
+<li><a href="#1-1-shi-me-shi-rdb">1.1 什么是RDB</a></li>
+<li><a href="#1-2-rdb-chuang-jian-kuai-zhao-shi-hui-zu-sai-zhu-xian-cheng-ma">1.2 RDB 创建快照时会阻塞主线程吗？</a></li>
+</ul>
+</li>
+<li><a href="#2-aof">2 AOF</a><ul>
+<li><a href="#2-1-shi-me-shi-aof">2.1 什么是AOF</a></li>
+<li><a href="#2-2-aof-shi-ru-he-shi-xian-de">2.2 AOF是如何实现的</a></li>
+<li><a href="#2-3-aof-chong-xie">2.3 AOF重写</a></li>
+</ul>
+</li>
+<li><a href="#3-ru-he-xuan-ze-rdb-he-aof">3 如何选择RDB和AOF</a><ul>
+<li><a href="#3-1-rdb-you-dian">3.1 RDB优点</a></li>
+<li><a href="#3-2-aof-you-dian">3.2 AOF优点</a></li>
+</ul>
+</li>
+<li><a href="#4-hun-he-chi-jiu-hua">4 混合持久化</a></li>
+</ul>
+</li>
+<li><a href="#qi-ji-qun-shao-bing-zhu-cong">七、集群/哨兵/主从</a></li>
+<li><a href="#ba-ying-yong">八、应用</a><ul>
+<li><a href="#1-fen-bu-shi-suo">1 分布式锁</a></li>
+<li><a href="#2-gou-wu-che">2 购物车</a></li>
+<li><a href="#3-pai-xing-bang">3 排行榜</a></li>
+<li><a href="#4-chou-jiang-xi-tong">4 抽奖系统</a></li>
+<li><a href="#5-huo-yue-yong-hu">5 活跃用户</a></li>
+<li><a href="#6-ye-mian-fang-wen-liang">6 页面访问量</a></li>
+</ul>
+</li>
+<li><a href="#jiu-shu-ju-jie-gou">九、数据结构</a><ul>
+<li><a href="#1-you-na-xie-shu-ju-jie-gou">1 有哪些数据结构</a></li>
+<li><a href="#2-string">2 String</a></li>
+<li><a href="#3-hash">3 Hash</a><ul>
+<li><a href="#3-1-hashtable-he-ziplist">3.1 Hashtable和ziplist</a></li>
+</ul>
+</li>
+<li><a href="#4-zset">4 ZSet</a><ul>
+<li><a href="#4-1-tiao-yue-biao">4.1 跳跃表</a></li>
+</ul>
+</li>
+<li><a href="#5-list">5 List</a></li>
+<li><a href="#6-set">6 Set</a></li>
+</ul>
+</li>
+<li><a href="#shi-shi-wu">十、事物</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<h1><span id="yi-ji-chu">一、基础</span><a href="#yi-ji-chu" class="header-anchor">#</a></h1><h2><span id="1-shi-me-shi-redis">1 什么是Redis</span><a href="#1-shi-me-shi-redis" class="header-anchor">#</a></h2><ol>
 <li>redis是一个将数据存储在内存中的数据库，读写速度非常快，存储的是键值对</li>
 <li>redis支持数据的持久化，可以将内存中的数据保存到磁盘中，重启的时候可以再次加载进行使用</li>
 <li>redis不仅支持简单的kv类型的数据，还提供list，set，zset，hash等数据结构的存储</li>
 <li>redis支持数据的备份，即master-slave模式的数据备份</li>
 </ol>
-<h2 id="2-Redis为什么这么快"><a href="#2-Redis为什么这么快" class="headerlink" title="2 Redis为什么这么快"></a>2 Redis为什么这么快</h2><ol>
+<h2><span id="2-redis-wei-shi-me-zhe-me-kuai">2 Redis为什么这么快</span><a href="#2-redis-wei-shi-me-zhe-me-kuai" class="header-anchor">#</a></h2><ol>
 <li>redis完全基于内存</li>
 <li>redis有高效的事件处理模型，主要是单线程事件循环和IO多路复用<ul>
 <li>单线程可以避免了上下文切换和竞争，不需要锁</li>
@@ -48,11 +150,11 @@
 </li>
 <li>redis内置了多种优化过后的数据结构实现，性能非常高</li>
 </ol>
-<h2 id="3-为什么要用Redis"><a href="#3-为什么要用Redis" class="headerlink" title="3 为什么要用Redis"></a>3 为什么要用Redis</h2><ol>
+<h2><span id="3-wei-shi-me-yao-yong-redis">3 为什么要用Redis</span><a href="#3-wei-shi-me-yao-yong-redis" class="header-anchor">#</a></h2><ol>
 <li>高性能<br> Redis和传统数据库存在磁盘中相比，直接使用内存，速度非常快</li>
 <li>高并发<br> MySQL能达到一万QPS，<br> Redis能达到十万QPS到三十万QPS</li>
 </ol>
-<h3 id="3-1-redis适合的场景"><a href="#3-1-redis适合的场景" class="headerlink" title="3.1 redis适合的场景"></a>3.1 redis适合的场景</h3><ol>
+<h3><span id="3-1-redis-gua-he-de-chang-jing">3.1 redis适合的场景</span><a href="#3-1-redis-gua-he-de-chang-jing" class="header-anchor">#</a></h3><ol>
 <li>缓存：减轻MySQL查询压力，提高性能</li>
 <li>排行榜：利用redis的SortSet（有序集合）实现</li>
 <li>计数器：利用Redis的自增操作，可以统计点赞数、页面访问数</li>
@@ -61,25 +163,25 @@
 <li>消息队列：用list完成异步解藕</li>
 <li>session共享：客户登录任意一台机器都可以获得session信息</li>
 </ol>
-<h3 id="3-2-redis常见的功能"><a href="#3-2-redis常见的功能" class="headerlink" title="3.2 redis常见的功能"></a>3.2 redis常见的功能</h3><ol>
+<h3><span id="3-2-redis-chang-jian-de-gong-neng">3.2 redis常见的功能</span><a href="#3-2-redis-chang-jian-de-gong-neng" class="header-anchor">#</a></h3><ol>
 <li>支持数据缓存</li>
 <li>支持分布式锁</li>
 <li>支持数据持久化</li>
 <li>支持事务（不满足原子性和持久性）</li>
 <li>支持消息队列（异步处理，应用解耦，流量削峰和消息通讯），一般没人用</li>
 </ol>
-<h1 id="二、内存"><a href="#二、内存" class="headerlink" title="二、内存"></a>二、内存</h1><h2 id="1-设置过期时间"><a href="#1-设置过期时间" class="headerlink" title="1 设置过期时间"></a>1 设置过期时间</h2><ol>
+<h1><span id="er-nei-cun">二、内存</span><a href="#er-nei-cun" class="header-anchor">#</a></h1><h2><span id="1-she-zhi-guo-qi-shi-jian">1 设置过期时间</span><a href="#1-she-zhi-guo-qi-shi-jian" class="header-anchor">#</a></h2><ol>
 <li>设置过期时间减少内存消耗，绝大部分数据不需要一直保存</li>
 <li>传统的数据库判断数据是否过期性能非常差</li>
 <li>使用expire设置过期时间，字符串使用setex设置过期时间，persist移除一个键的过期时间，ttl查看还有多久过期</li>
 </ol>
-<h2 id="2-Redis如何判断数据是否过期"><a href="#2-Redis如何判断数据是否过期" class="headerlink" title="2 Redis如何判断数据是否过期"></a>2 Redis如何判断数据是否过期</h2><p>过期字典</p>
+<h2><span id="2-redis-ru-he-pan-duan-shu-ju-shi-fou-guo-qi">2 Redis如何判断数据是否过期</span><a href="#2-redis-ru-he-pan-duan-shu-ju-shi-fou-guo-qi" class="header-anchor">#</a></h2><p>过期字典</p>
 <ol>
 <li>过期字典保存了数据库中所有键的过期时间</li>
 <li>过期字典的key是一个指针</li>
 <li>value是long long类型，保存了该键过期时间</li>
 </ol>
-<h2 id="3-过期数据的删除策略"><a href="#3-过期数据的删除策略" class="headerlink" title="3 过期数据的删除策略"></a>3 过期数据的删除策略</h2><ol>
+<h2><span id="3-guo-qi-shu-ju-de-shan-chu-ce-lue">3 过期数据的删除策略</span><a href="#3-guo-qi-shu-ju-de-shan-chu-ce-lue" class="header-anchor">#</a></h2><ol>
 <li>定时删除<ul>
 <li>在设置键的过期时间的同时，创建一个定时器，通过定时器执行对键的删除操作</li>
 <li>内存友好，对CPU时间不友好（执行删除占用时间）</li>
@@ -96,7 +198,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="4-内存淘汰机制"><a href="#4-内存淘汰机制" class="headerlink" title="4 内存淘汰机制"></a>4 内存淘汰机制</h2><ol>
+<h2><span id="4-nei-cun-tao-tai-ji-zhi">4 内存淘汰机制</span><a href="#4-nei-cun-tao-tai-ji-zhi" class="header-anchor">#</a></h2><ol>
 <li>volatile-lru：从已设置过期时间的数据中最少使用淘汰</li>
 <li>volatile-ttl：从已设置过期时间的数据中挑选将要过期的数据淘汰</li>
 <li>volatile-random：从已设置过期时间的数据中随机淘汰</li>
@@ -104,22 +206,22 @@
 <li>allkeys-random：从全部数据中任意淘汰</li>
 <li>禁止驱逐数据</li>
 </ol>
-<h2 id="5-内存碎片"><a href="#5-内存碎片" class="headerlink" title="5 内存碎片"></a>5 内存碎片</h2><ol>
+<h2><span id="5-nei-cun-sui-pian">5 内存碎片</span><a href="#5-nei-cun-sui-pian" class="header-anchor">#</a></h2><ol>
 <li>redis存储存储数据的时候向操作系统申请的内存空间可能会大于数据实际需要的存储空间。</li>
 <li>当redis中某个数据删除时，通常不会轻易释放内存给操作系统。</li>
 <li>info memory查到内存碎片率大于1.5需要清理碎片</li>
 <li>碎片清理时，设置内存碎片清理所占用CPU时间的比例</li>
 </ol>
-<h1 id="三、性能优化"><a href="#三、性能优化" class="headerlink" title="三、性能优化"></a>三、性能优化</h1><h2 id="1-性能瓶颈"><a href="#1-性能瓶颈" class="headerlink" title="1 性能瓶颈"></a>1 性能瓶颈</h2><ol>
+<h1><span id="san-xing-neng-you-hua">三、性能优化</span><a href="#san-xing-neng-you-hua" class="header-anchor">#</a></h1><h2><span id="1-xing-neng-ping-jing">1 性能瓶颈</span><a href="#1-xing-neng-ping-jing" class="header-anchor">#</a></h2><ol>
 <li>网络</li>
 <li>内存</li>
 </ol>
-<h2 id="2-内存优化"><a href="#2-内存优化" class="headerlink" title="2 内存优化"></a>2 内存优化</h2><ul>
+<h2><span id="2-nei-cun-you-hua">2 内存优化</span><a href="#2-nei-cun-you-hua" class="header-anchor">#</a></h2><ul>
 <li>降低key和value的大小</li>
 <li>维护共享整数对象池</li>
 <li>选择合适的底层存储结构</li>
 </ul>
-<h3 id="2-1-如何解决大Key的问题"><a href="#2-1-如何解决大Key的问题" class="headerlink" title="2.1 如何解决大Key的问题"></a>2.1 如何解决大Key的问题</h3><ol>
+<h3><span id="2-1-ru-he-jie-jue-da-key-de-wen-ti">2.1 如何解决大Key的问题</span><a href="#2-1-ru-he-jie-jue-da-key-de-wen-ti" class="header-anchor">#</a></h3><ol>
 <li>定义：一般来讲string的value大于10KB的就是大key，其他类型field超过一万个</li>
 <li>影响：<ol>
 <li>单线程，耗时增加会阻塞其他请求</li>
@@ -138,7 +240,7 @@
 </ol>
 </li>
 </ol>
-<h3 id="2-2-设置ziplist和hashtable"><a href="#2-2-设置ziplist和hashtable" class="headerlink" title="2.2 设置ziplist和hashtable"></a>2.2 设置ziplist和hashtable</h3><ol>
+<h3><span id="2-2-she-zhi-ziplist-he-hashtable">2.2 设置ziplist和hashtable</span><a href="#2-2-she-zhi-ziplist-he-hashtable" class="header-anchor">#</a></h3><ol>
 <li>区别<ul>
 <li>ziplist是双向链表，占用空间比hashtable小，查询耗时比hashtable长</li>
 <li>hashtable是散列表，占用空间比ziplist大，查询耗时比hashtable短</li>
@@ -151,7 +253,7 @@
 </li>
 <li>查看底层存储的方法<br> OBJECT ENCODIN</li>
 </ol>
-<h2 id="3-网络优化"><a href="#3-网络优化" class="headerlink" title="3 网络优化"></a>3 网络优化</h2><h3 id="3-1-网络优化方法"><a href="#3-1-网络优化方法" class="headerlink" title="3.1 网络优化方法"></a>3.1 网络优化方法</h3><p>核心：使用批量操作</p>
+<h2><span id="3-wang-luo-you-hua">3 网络优化</span><a href="#3-wang-luo-you-hua" class="header-anchor">#</a></h2><h3><span id="3-1-wang-luo-you-hua-fang-fa">3.1 网络优化方法</span><a href="#3-1-wang-luo-you-hua-fang-fa" class="header-anchor">#</a></h3><p>核心：使用批量操作</p>
 <ol>
 <li>原生命令：hmget、hmset<ul>
 <li>问题1：无法保证所有的 key 都在同一个hash slot，仍需要多次网络传输（总体来说还是优化）</li>
@@ -174,7 +276,7 @@
 </ul>
 </li>
 </ol>
-<h1 id="四、线程模型"><a href="#四、线程模型" class="headerlink" title="四、线程模型"></a>四、线程模型</h1><h2 id="1-单线程模型"><a href="#1-单线程模型" class="headerlink" title="1 单线程模型"></a>1 单线程模型</h2><p>Redis 基于 Reactor 模式开发了自己的网络事件处理器，被称作文件事件处理器</p>
+<h1><span id="si-xian-cheng-mo-xing">四、线程模型</span><a href="#si-xian-cheng-mo-xing" class="header-anchor">#</a></h1><h2><span id="1-dan-xian-cheng-mo-xing">1 单线程模型</span><a href="#1-dan-xian-cheng-mo-xing" class="header-anchor">#</a></h2><p>Redis 基于 Reactor 模式开发了自己的网络事件处理器，被称作文件事件处理器</p>
 <ul>
 <li>文件事件处理器使用I/O多路复用，来同时监听多个套接字，并根据套接字目前执行的任务来为套接字关联不同的事件处理器。</li>
 <li>当被监听的套接字准备好执行连接、读取、写入、关闭等操作时，与操作相对应的文件事件就会产生。这时文件事件处理器就会调用套接字之前关联好的事件处理器来处理这些事件。</li>
@@ -186,17 +288,17 @@
 <li>Redis瓶颈不在CPU，而在内存和网络</li>
 <li>多线程可能会存在死锁、线程上下文切换问题，影响性能</li>
 </ol>
-<h2 id="2-新版本多线程"><a href="#2-新版本多线程" class="headerlink" title="2 新版本多线程"></a>2 新版本多线程</h2><ul>
+<h2><span id="2-xin-ban-ben-duo-xian-cheng">2 新版本多线程</span><a href="#2-xin-ban-ben-duo-xian-cheng" class="header-anchor">#</a></h2><ul>
 <li>Redis4.0，在对一些大键值对的删除操作的命令时，会异步删除。</li>
 <li>Redis6.0，针对提高网络 IO 读写性能，使用多线程。<br> 执行命令仍然是单线程顺序执行。</li>
 </ul>
-<h1 id="五、高并发"><a href="#五、高并发" class="headerlink" title="五、高并发"></a>五、高并发</h1><h2 id="1-高并发场景下使用缓存需要注意哪些问题"><a href="#1-高并发场景下使用缓存需要注意哪些问题" class="headerlink" title="1 高并发场景下使用缓存需要注意哪些问题"></a>1 高并发场景下使用缓存需要注意哪些问题</h2><ol>
+<h1><span id="wu-gao-bing-fa">五、高并发</span><a href="#wu-gao-bing-fa" class="header-anchor">#</a></h1><h2><span id="1-gao-bing-fa-chang-jing-xia-shi-yong-huan-cun-xu-yao-zhu-yi-na-xie-wen-ti">1 高并发场景下使用缓存需要注意哪些问题</span><a href="#1-gao-bing-fa-chang-jing-xia-shi-yong-huan-cun-xu-yao-zhu-yi-na-xie-wen-ti" class="header-anchor">#</a></h2><ol>
 <li>缓存一致性问题<br> 需要保证缓存中的数据与数据库中的一致，需要选择业务适合的缓存过期和更新策略。一般在数据发生更改的时，主动更新缓存中的数据。</li>
 <li>缓存击穿问题<br> 在某个高访问量的key过期时，大量的请求会直接落到数据库中。解决方法是加载缓存时采用互斥锁，保证只有一条请求落到数据库，其他请求先自旋，然后查询缓存，最后再申请锁。</li>
 <li>缓存穿透问题<br> 一些没有value的key被频繁查找，可以通过在缓存中缓存空对象来缓解。</li>
 <li>缓存雪崩问题<br> 大量的缓存同时失效或过期。解决方式：限流、降级、熔断、多级缓存。比如在设置过期时间时，合理增加随机性。</li>
 </ol>
-<h2 id="2-高并发下使用规范"><a href="#2-高并发下使用规范" class="headerlink" title="2 高并发下使用规范"></a>2 高并发下使用规范</h2><h3 id="2-1-键值设计"><a href="#2-1-键值设计" class="headerlink" title="2.1 键值设计"></a>2.1 键值设计</h3><ol>
+<h2><span id="2-gao-bing-fa-xia-shi-yong-gui-fan">2 高并发下使用规范</span><a href="#2-gao-bing-fa-xia-shi-yong-gui-fan" class="header-anchor">#</a></h2><h3><span id="2-1-jian-zhi-she-ji">2.1 键值设计</span><a href="#2-1-jian-zhi-she-ji" class="header-anchor">#</a></h3><ol>
 <li>key设计<ul>
 <li>有随机性，不要用固定值做key（防止哈希槽冲突）</li>
 <li>以业务名为前缀，用冒号分隔</li>
@@ -211,38 +313,38 @@
 </ul>
 </li>
 </ol>
-<h3 id="2-2-命令使用"><a href="#2-2-命令使用" class="headerlink" title="2.2 命令使用"></a>2.2 命令使用</h3><ul>
+<h3><span id="2-2-ming-ling-shi-yong">2.2 命令使用</span><a href="#2-2-ming-ling-shi-yong" class="header-anchor">#</a></h3><ul>
 <li>尽量使用批量操作降低网络耗时（pipeline或者hgetall）</li>
 <li>使用批量操作注意个数</li>
 <li>禁止使用keys、flushall、flushdb，用rename禁用</li>
 <li>尽量避免使用redis的事物（不支持回滚、集群版key必须在同一个slot里）</li>
 </ul>
-<h3 id="2-3-使用规范"><a href="#2-3-使用规范" class="headerlink" title="2.3 使用规范"></a>2.3 使用规范</h3><ul>
+<h3><span id="2-3-shi-yong-gui-fan">2.3 使用规范</span><a href="#2-3-shi-yong-gui-fan" class="header-anchor">#</a></h3><ul>
 <li>避免多个应用使用同一个Redis实例</li>
 <li>使用连接池，控制连接数，提高效率</li>
 <li>添加熔断机制</li>
 <li>选择合适的内存淘汰策略（allkeys-lru），设置过期时间</li>
 </ul>
-<h1 id="六、持久化"><a href="#六、持久化" class="headerlink" title="六、持久化"></a>六、持久化</h1><ul>
+<h1><span id="liu-chi-jiu-hua">六、持久化</span><a href="#liu-chi-jiu-hua" class="header-anchor">#</a></h1><ul>
 <li>防止系统故障</li>
 <li>重启机器之后数据还在</li>
 <li>备份到其他位置</li>
 </ul>
-<h2 id="1-RDB"><a href="#1-RDB" class="headerlink" title="1 RDB"></a>1 RDB</h2><p>快照</p>
-<h3 id="1-1-什么是RDB"><a href="#1-1-什么是RDB" class="headerlink" title="1.1 什么是RDB"></a>1.1 什么是RDB</h3><ul>
+<h2><span id="1-rdb">1 RDB</span><a href="#1-rdb" class="header-anchor">#</a></h2><p>快照</p>
+<h3><span id="1-1-shi-me-shi-rdb">1.1 什么是RDB</span><a href="#1-1-shi-me-shi-rdb" class="header-anchor">#</a></h3><ul>
 <li>快照持久化是默认的持久化方式</li>
 <li>redis通过创建快照，来获得存储在内存里面的数据，在某个时间点上的副本。</li>
 </ul>
-<h3 id="1-2-RDB-创建快照时会阻塞主线程吗？"><a href="#1-2-RDB-创建快照时会阻塞主线程吗？" class="headerlink" title="1.2 RDB 创建快照时会阻塞主线程吗？"></a>1.2 RDB 创建快照时会阻塞主线程吗？</h3><ul>
+<h3><span id="1-2-rdb-chuang-jian-kuai-zhao-shi-hui-zu-sai-zhu-xian-cheng-ma">1.2 RDB 创建快照时会阻塞主线程吗？</span><a href="#1-2-rdb-chuang-jian-kuai-zhao-shi-hui-zu-sai-zhu-xian-cheng-ma" class="header-anchor">#</a></h3><ul>
 <li>bgsave是默认命令，会fork出一个子进程，子进程创建快照，不会阻塞主线程</li>
 <li>save是同步保存操作，会阻塞主线程</li>
 </ul>
-<h2 id="2-AOF"><a href="#2-AOF" class="headerlink" title="2 AOF"></a>2 AOF</h2><p>只追加文件</p>
-<h3 id="2-1-什么是AOF"><a href="#2-1-什么是AOF" class="headerlink" title="2.1 什么是AOF"></a>2.1 什么是AOF</h3><ul>
+<h2><span id="2-aof">2 AOF</span><a href="#2-aof" class="header-anchor">#</a></h2><p>只追加文件</p>
+<h3><span id="2-1-shi-me-shi-aof">2.1 什么是AOF</span><a href="#2-1-shi-me-shi-aof" class="header-anchor">#</a></h3><ul>
 <li>开启AOF持久化后，每执行一条更改数据的命令，会将该命令写入到内存缓存，根据配置决定何时将其同步到硬盘中的AOF文件</li>
 <li>与RDB相比，AOF持久化的实时性更好</li>
 </ul>
-<h3 id="2-2-AOF是如何实现的"><a href="#2-2-AOF是如何实现的" class="headerlink" title="2.2 AOF是如何实现的"></a>2.2 AOF是如何实现的</h3><p>aof会在执行完命令之后才记录日志。</p>
+<h3><span id="2-2-aof-shi-ru-he-shi-xian-de">2.2 AOF是如何实现的</span><a href="#2-2-aof-shi-ru-he-shi-xian-de" class="header-anchor">#</a></h3><p>aof会在执行完命令之后才记录日志。</p>
 <p>优点：</p>
 <ul>
 <li>这样可以避免额外的检查开销</li>
@@ -253,7 +355,7 @@
 <li>执行完命令还没有AOF就宕机，会导致对应的修改丢失</li>
 <li>会阻塞后续其他命令的执行（AOF记录日志是在Redis主线程中进行的）</li>
 </ul>
-<h3 id="2-3-AOF重写"><a href="#2-3-AOF重写" class="headerlink" title="2.3 AOF重写"></a>2.3 AOF重写</h3><ol>
+<h3><span id="2-3-aof-chong-xie">2.3 AOF重写</span><a href="#2-3-aof-chong-xie" class="header-anchor">#</a></h3><ol>
 <li>含义和条件<br> 当 AOF 变得太大时，Redis 能够在后台自动重写 AOF 产生一个新的 AOF 文件，这个新的 AOF 文件和原有的 AOF 文件所保存的数据库状态一样，但体积更小。</li>
 <li>实现方式<br> 这个功能是通过读取当前的数据库状态来实现的</li>
 <li>可能发生的问题和解决方式<ul>
@@ -264,25 +366,25 @@
 </ul>
 </li>
 </ol>
-<h2 id="3-如何选择RDB和AOF"><a href="#3-如何选择RDB和AOF" class="headerlink" title="3 如何选择RDB和AOF"></a>3 如何选择RDB和AOF</h2><h3 id="3-1-RDB优点"><a href="#3-1-RDB优点" class="headerlink" title="3.1 RDB优点"></a>3.1 RDB优点</h3><ol>
+<h2><span id="3-ru-he-xuan-ze-rdb-he-aof">3 如何选择RDB和AOF</span><a href="#3-ru-he-xuan-ze-rdb-he-aof" class="header-anchor">#</a></h2><h3><span id="3-1-rdb-you-dian">3.1 RDB优点</span><a href="#3-1-rdb-you-dian" class="header-anchor">#</a></h3><ol>
 <li>RDB比AOF更小，适合做灾备</li>
 <li>使用 RDB 文件恢复数据，直接解析还原数据即可，不需要一条一条地执行命令，速度非常快。</li>
 </ol>
-<h3 id="3-2-AOF优点"><a href="#3-2-AOF优点" class="headerlink" title="3.2 AOF优点"></a>3.2 AOF优点</h3><ol>
+<h3><span id="3-2-aof-you-dian">3.2 AOF优点</span><a href="#3-2-aof-you-dian" class="header-anchor">#</a></h3><ol>
 <li>AOF实时性比RDB更好</li>
 <li>RDB在产生的时候会对CPU和资源影响比较大</li>
 <li>AOF易于理解，可以轻松导出进行分析</li>
 </ol>
-<h2 id="4-混合持久化"><a href="#4-混合持久化" class="headerlink" title="4 混合持久化"></a>4 混合持久化</h2><ul>
+<h2><span id="4-hun-he-chi-jiu-hua">4 混合持久化</span><a href="#4-hun-he-chi-jiu-hua" class="header-anchor">#</a></h2><ul>
 <li>结合 RDB 和 AOF 的优点, 快速加载同时避免丢失过多的数据。</li>
 <li>默认关闭，需要通过配置项开启</li>
 </ul>
-<h1 id="七、集群-哨兵-主从"><a href="#七、集群-哨兵-主从" class="headerlink" title="七、集群/哨兵/主从"></a>七、集群/哨兵/主从</h1><h1 id="八、应用"><a href="#八、应用" class="headerlink" title="八、应用"></a>八、应用</h1><h2 id="1-分布式锁"><a href="#1-分布式锁" class="headerlink" title="1 分布式锁"></a>1 分布式锁</h2><ul>
+<h1><span id="qi-ji-qun-shao-bing-zhu-cong">七、集群/哨兵/主从</span><a href="#qi-ji-qun-shao-bing-zhu-cong" class="header-anchor">#</a></h1><h1><span id="ba-ying-yong">八、应用</span><a href="#ba-ying-yong" class="header-anchor">#</a></h1><h2><span id="1-fen-bu-shi-suo">1 分布式锁</span><a href="#1-fen-bu-shi-suo" class="header-anchor">#</a></h2><ul>
 <li>用lua脚本，先判断setnx是否结果为1，获取到了锁，再立即执行expire设置一个合理的超时时间，保证原子性。</li>
 <li>同时在此线程开启守护线程，给锁续期。</li>
 <li>能确保真的拿到锁，也可以避免线程异常结束，锁未被释放的情况。</li>
 </ul>
-<h2 id="2-购物车"><a href="#2-购物车" class="headerlink" title="2 购物车"></a>2 购物车</h2><p>购物车信息一般用Hash存储，因为购物车中的商品频繁修改和变动</p>
+<h2><span id="2-gou-wu-che">2 购物车</span><a href="#2-gou-wu-che" class="header-anchor">#</a></h2><p>购物车信息一般用Hash存储，因为购物车中的商品频繁修改和变动</p>
 <ul>
 <li>用户id为 key</li>
 <li>商品id为field，商品数量为value 普通维护</li>
@@ -292,18 +394,18 @@
 <li>删除商品就是删除 Hash 中对应的 field；</li>
 <li>清空购物车直接删除对应的 key 即可。</li>
 </ul>
-<h2 id="3-排行榜"><a href="#3-排行榜" class="headerlink" title="3 排行榜"></a>3 排行榜</h2><p>sorted set经常被用在排行榜上。<br> 常见的命令有：<code>ZRANGE</code> (从小到大排序) 、 <code>ZREVRANGE</code> （从大到小排序）、<code>ZREVRANK</code> (指定元素排名)。</p>
-<h2 id="4-抽奖系统"><a href="#4-抽奖系统" class="headerlink" title="4 抽奖系统"></a>4 抽奖系统</h2><p>使用set</p>
+<h2><span id="3-pai-xing-bang">3 排行榜</span><a href="#3-pai-xing-bang" class="header-anchor">#</a></h2><p>sorted set经常被用在排行榜上。<br> 常见的命令有：<code>ZRANGE</code> (从小到大排序) 、 <code>ZREVRANGE</code> （从大到小排序）、<code>ZREVRANK</code> (指定元素排名)。</p>
+<h2><span id="4-chou-jiang-xi-tong">4 抽奖系统</span><a href="#4-chou-jiang-xi-tong" class="header-anchor">#</a></h2><p>使用set</p>
 <ul>
 <li><code>SPOP key count</code> ： 随机移除并获取指定集合中一个或多个元素，适合不允许重复中奖的场景。</li>
 <li><code>SRANDMEMBER key count</code> : 随机获取指定集合中指定数量的元素，适合允许重复中奖的场景。</li>
 </ul>
-<h2 id="5-活跃用户"><a href="#5-活跃用户" class="headerlink" title="5 活跃用户"></a>5 活跃用户</h2><p>使用bitmap<br> 使用日期（精确到天）作为 key，然后用户ID为offset，如果当日活跃过就设置为 1。<br> ….</p>
-<h2 id="6-页面访问量"><a href="#6-页面访问量" class="headerlink" title="6 页面访问量"></a>6 页面访问量</h2><ol>
+<h2><span id="5-huo-yue-yong-hu">5 活跃用户</span><a href="#5-huo-yue-yong-hu" class="header-anchor">#</a></h2><p>使用bitmap<br> 使用日期（精确到天）作为 key，然后用户ID为offset，如果当日活跃过就设置为 1。<br> ….</p>
+<h2><span id="6-ye-mian-fang-wen-liang">6 页面访问量</span><a href="#6-ye-mian-fang-wen-liang" class="header-anchor">#</a></h2><ol>
 <li>用<code>PFADD</code>将访问指定页面的每个用户 ID 添加到 <code>HyperLogLog</code> 中。</li>
 <li>用<code>PFCOUNT</code>统计指定页面的 UV。</li>
 </ol>
-<h1 id="九、数据结构"><a href="#九、数据结构" class="headerlink" title="九、数据结构"></a>九、数据结构</h1><h2 id="1-有哪些数据结构"><a href="#1-有哪些数据结构" class="headerlink" title="1 有哪些数据结构"></a>1 有哪些数据结构</h2><p>五种基础数据结构</p>
+<h1><span id="jiu-shu-ju-jie-gou">九、数据结构</span><a href="#jiu-shu-ju-jie-gou" class="header-anchor">#</a></h1><h2><span id="1-you-na-xie-shu-ju-jie-gou">1 有哪些数据结构</span><a href="#1-you-na-xie-shu-ju-jie-gou" class="header-anchor">#</a></h2><p>五种基础数据结构</p>
 <ol>
 <li>String：字符串类型，可以存储字符串、整数和浮点数。</li>
 <li>List：有序列表类型，可以存储多个元素，每个元素可以是字符串或者数字。底层是双向链表</li>
@@ -325,24 +427,24 @@
 <li><p>Geospatial (地理位置)。</p>
 </li>
 </ol>
-<h2 id="2-String"><a href="#2-String" class="headerlink" title="2 String"></a>2 String</h2><h2 id="3-Hash"><a href="#3-Hash" class="headerlink" title="3 Hash"></a>3 Hash</h2><h3 id="3-1-Hashtable和ziplist"><a href="#3-1-Hashtable和ziplist" class="headerlink" title="3.1 Hashtable和ziplist"></a>3.1 Hashtable和ziplist</h3><h2 id="4-ZSet"><a href="#4-ZSet" class="headerlink" title="4 ZSet"></a>4 ZSet</h2><h3 id="4-1-跳跃表"><a href="#4-1-跳跃表" class="headerlink" title="4.1 跳跃表"></a>4.1 跳跃表</h3><ul>
+<h2><span id="2-string">2 String</span><a href="#2-string" class="header-anchor">#</a></h2><h2><span id="3-hash">3 Hash</span><a href="#3-hash" class="header-anchor">#</a></h2><h3><span id="3-1-hashtable-he-ziplist">3.1 Hashtable和ziplist</span><a href="#3-1-hashtable-he-ziplist" class="header-anchor">#</a></h3><h2><span id="4-zset">4 ZSet</span><a href="#4-zset" class="header-anchor">#</a></h2><h3><span id="4-1-tiao-yue-biao">4.1 跳跃表</span><a href="#4-1-tiao-yue-biao" class="header-anchor">#</a></h3><ul>
 <li>通过在每个节点中维持多个指向其他节点的指针，从而达到快速访问节点的目的。</li>
 <li>跳跃表在链表的基础上增加了多级索引以提升查找的效率，是一个空间换时间的方案。</li>
 <li>当节点本身比较大或者元素数量比较多的时候，空间的缺点可以忽略。</li>
 <li>Redis使用跳跃表作为有序集合键的底层实现之一，如果一个有序集合包含的元素数量比较多，又或者有序集合中元素的成员是比较长的字符串时，Redis就会使用跳跃表来作为有序集合键的底层实现。</li>
 </ul>
-<h2 id="5-List"><a href="#5-List" class="headerlink" title="5 List"></a>5 List</h2><h2 id="6-Set"><a href="#6-Set" class="headerlink" title="6 Set"></a>6 Set</h2><h1 id="十、事物"><a href="#十、事物" class="headerlink" title="十、事物"></a>十、事物</h1>
+<h2><span id="5-list">5 List</span><a href="#5-list" class="header-anchor">#</a></h2><h2><span id="6-set">6 Set</span><a href="#6-set" class="header-anchor">#</a></h2><h1><span id="shi-shi-wu">十、事物</span><a href="#shi-shi-wu" class="header-anchor">#</a></h1>
     </div>
 
     
 </div>
     <div class="footer" id="footer">
-    <p><h4>版权所有 © 2020 | 作者: 毕成 | 主题 By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
+    <p><h4>Copyright © 2020 | Author: 毕成 | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
     
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站浏览总访问量: <span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
         <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">本站访问人数: <span id="busuanzi_value_site_uv"></span></span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
     
     <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
         <input type="checkbox" name="switch" id="update_style">

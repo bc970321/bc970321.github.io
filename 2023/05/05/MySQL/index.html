@@ -33,14 +33,76 @@
         <hr>
     </div>
     <div class="post-content">
-        <h1 id="一、索引"><a href="#一、索引" class="headerlink" title="一、索引"></a>一、索引</h1><h2 id="1-B树和B-树"><a href="#1-B树和B-树" class="headerlink" title="1 B树和B+树"></a>1 B树和B+树</h2><h3 id="B树（B-树）特点"><a href="#B树（B-树）特点" class="headerlink" title="B树（B-树）特点"></a>B树（B-树）特点</h3><p>B树和B+树是平衡多路查找树（b是balance（平衡））</p>
+        <div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#yi-suo-yin">一、索引</a><ul>
+<li><a href="#1-b-shu-he-b-shu">1 B树和B+树</a><ul>
+<li><a href="#b-shu-b-shu-te-dian">B树（B-树）特点</a></li>
+<li><a href="#b-shu-he-b-shu-de-qu-bie">B+树和B树的区别</a></li>
+</ul>
+</li>
+<li><a href="#2-ge-chong-lei-xing-de-suo-yin">2 各种类型的索引</a><ul>
+<li><a href="#2-1-ju-cu-suo-yin-he-fei-ju-cu-suo-yin">2.1 聚簇索引和非聚簇索引</a></li>
+<li><a href="#2-2-zhu-jian-suo-yin-he-er-ji-suo-yin">2.2 主键索引和二级索引</a></li>
+<li><a href="#2-3-fu-gai-suo-yin-he-lian-he-suo-yin">2.3 覆盖索引和联合索引</a></li>
+</ul>
+</li>
+<li><a href="#3-lian-he-suo-yin-de-zui-zuo-qian-zhui-pi-pei-yuan-ze-he-shi-xiao-tiao-jian">3 联合索引的最左前缀匹配原则和失效条件</a></li>
+<li><a href="#4-shi-yong-suo-yin-de-gui-fan">4 使用索引的规范</a></li>
+<li><a href="#mysql-suo-yin-gui-fan">MySQL索引规范</a></li>
+<li><a href="#shi-me-qing-kuang-bu-jian-yi-shi-yong-suo-yin">什么情况不建议使用索引</a></li>
+</ul>
+</li>
+<li><a href="#er-te-xing">二、特性</a><ul>
+<li><a href="#innodb">InnoDB</a></li>
+<li><a href="#mvcc">MVCC</a></li>
+<li><a href="#undo-log">undo log</a></li>
+<li><a href="#redo-log">redo log</a></li>
+<li><a href="#liang-jie-duan-ti-jiao-xie-yi">两阶段提交协议</a></li>
+</ul>
+</li>
+<li><a href="#san-jia-gou-yin-qing">三、架构、引擎</a><ul>
+<li><a href="#1-ji-chu-jia-gou">1 基础架构</a><ul>
+<li><a href="#mysql-ru-he-zhi-xing-yi-tiao-sql">MySQL如何执行一条SQL</a></li>
+</ul>
+</li>
+<li><a href="#2-cun-chu-yin-qing">2 存储引擎</a><ul>
+<li><a href="#2-1-myisam-he-innodb-de-qu-bie">2.1 MyISAM和InnoDB的区别</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#si-ji-ben-yuan-li">四、基本原理</a><ul>
+<li><a href="#shi-wu-de-te-xing-acid">事物的特性（ACID）</a></li>
+<li><a href="#zang-du-huan-du-bu-ke-chong-fu-du">脏读、幻读、不可重复读</a></li>
+<li><a href="#shi-wu-ge-chi-ji-bie">事物隔离级别</a></li>
+</ul>
+</li>
+<li><a href="#wu-suo">五、锁</a></li>
+<li><a href="#liu-shi-yong">六、使用</a><ul>
+<li><a href="#sql-zhi-xing-de-man-de-yuan-yin-he-jie-jue-fang-fa">SQL执行的慢的原因和解决方法</a><ul>
+<li><a href="#gai-sql-ou-er-zhi-xing-man">该SQL偶尔执行慢</a></li>
+<li><a href="#gai-sql-yi-zhi-zhi-xing-man">该SQL一直执行慢</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<h1><span id="yi-suo-yin">一、索引</span><a href="#yi-suo-yin" class="header-anchor">#</a></h1><h2><span id="1-b-shu-he-b-shu">1 B树和B+树</span><a href="#1-b-shu-he-b-shu" class="header-anchor">#</a></h2><h3><span id="b-shu-b-shu-te-dian">B树（B-树）特点</span><a href="#b-shu-b-shu-te-dian" class="header-anchor">#</a></h3><p>B树和B+树是平衡多路查找树（b是balance（平衡））</p>
 <ol>
 <li>每个根结点有多个叶子节点</li>
 <li>高度平衡，每个根节点高度一致</li>
 <li>高度小，查找速度较快</li>
 <li>所有节点遵循左小右大</li>
 </ol>
-<h3 id="B-树和B树的区别"><a href="#B-树和B树的区别" class="headerlink" title="B+树和B树的区别"></a>B+树和B树的区别</h3><ol>
+<h3><span id="b-shu-he-b-shu-de-qu-bie">B+树和B树的区别</span><a href="#b-shu-he-b-shu-de-qu-bie" class="header-anchor">#</a></h3><ol>
 <li>所有结果只存储在叶子节点，所有根节点不存储数据。</li>
 <li>每个叶子节点都有指向下一个节点的指针。</li>
 </ol>
@@ -50,7 +112,7 @@
 <li>遍历更快</li>
 <li>通过叶子节点存储指针，能满足空间局部性原理，如果存储器上某个位置被访问，那么它附近的位置也会被访问</li>
 </ol>
-<h2 id="2-各种类型的索引"><a href="#2-各种类型的索引" class="headerlink" title="2 各种类型的索引"></a>2 各种类型的索引</h2><h3 id="2-1-聚簇索引和非聚簇索引"><a href="#2-1-聚簇索引和非聚簇索引" class="headerlink" title="2.1 聚簇索引和非聚簇索引"></a>2.1 聚簇索引和非聚簇索引</h3><p>按照底层存储方式角度划分</p>
+<h2><span id="2-ge-chong-lei-xing-de-suo-yin">2 各种类型的索引</span><a href="#2-ge-chong-lei-xing-de-suo-yin" class="header-anchor">#</a></h2><h3><span id="2-1-ju-cu-suo-yin-he-fei-ju-cu-suo-yin">2.1 聚簇索引和非聚簇索引</span><a href="#2-1-ju-cu-suo-yin-he-fei-ju-cu-suo-yin" class="header-anchor">#</a></h3><p>按照底层存储方式角度划分</p>
 <ol>
 <li><p>聚簇索引（聚集索引）<br> 索引结构和数据一起存放的索引，InnoDB的主键索引就属于聚簇索引（字典里的拼音）<br> 优点：</p>
 <ul>
@@ -73,13 +135,13 @@
 </ul>
 </li>
 </ol>
-<h3 id="2-2-主键索引和二级索引"><a href="#2-2-主键索引和二级索引" class="headerlink" title="2.2 主键索引和二级索引"></a>2.2 主键索引和二级索引</h3><ol>
+<h3><span id="2-2-zhu-jian-suo-yin-he-er-ji-suo-yin">2.2 主键索引和二级索引</span><a href="#2-2-zhu-jian-suo-yin-he-er-ji-suo-yin" class="header-anchor">#</a></h3><ol>
 <li>主键索引<br> 加速查询，列值唯一（不可以为NULL），一张表只有一个主键</li>
 <li>唯一索引<br> 加速查询，列值唯一（可以有NULL），一张表可以有多个</li>
 <li>普通索引<br> 只能加速查询，允许值重复和有NULL，一张表可以有多个</li>
 <li>前缀索引<br> 只适用于字符串类型，对文本的前几个字符创建索引，比普通索引建立的数据更小</li>
 </ol>
-<h3 id="2-3-覆盖索引和联合索引"><a href="#2-3-覆盖索引和联合索引" class="headerlink" title="2.3 覆盖索引和联合索引"></a>2.3 覆盖索引和联合索引</h3><p>覆盖索引</p>
+<h3><span id="2-3-fu-gai-suo-yin-he-lian-he-suo-yin">2.3 覆盖索引和联合索引</span><a href="#2-3-fu-gai-suo-yin-he-lian-he-suo-yin" class="header-anchor">#</a></h3><p>覆盖索引</p>
 <ul>
 <li>索引覆盖了查询内容</li>
 <li>比如：对列a、b做索引，只查a或者b不需要回表。</li>
@@ -88,7 +150,7 @@
 <ul>
 <li>使用表中的多个字段创建索引</li>
 </ul>
-<h2 id="3-联合索引的最左前缀匹配原则和失效条件"><a href="#3-联合索引的最左前缀匹配原则和失效条件" class="headerlink" title="3 联合索引的最左前缀匹配原则和失效条件"></a>3 联合索引的最左前缀匹配原则和失效条件</h2><ul>
+<h2><span id="3-lian-he-suo-yin-de-zui-zuo-qian-zhui-pi-pei-yuan-ze-he-shi-xiao-tiao-jian">3 联合索引的最左前缀匹配原则和失效条件</span><a href="#3-lian-he-suo-yin-de-zui-zuo-qian-zhui-pi-pei-yuan-ze-he-shi-xiao-tiao-jian" class="header-anchor">#</a></h2><ul>
 <li>定义：按照最左优先的方式进行索引的匹配。</li>
 <li>示例：比如对a，b，c三列做索引，a、ab、abc可以使用索引，b、c、bc无法使用索引。</li>
 <li>结构：<br> 先按 a 排序，在 a 相同的情况再按 b 排序，在 b 相同的情况再按 c 排序。<br> 所以，b 和 c 是全局无序，局部相对有序的，这样在没有遵循最左匹配原则的情况下，是无法利用到索引的。</li>
@@ -101,26 +163,26 @@
 </ul>
 </li>
 </ul>
-<h2 id="4-使用索引的规范"><a href="#4-使用索引的规范" class="headerlink" title="4 使用索引的规范"></a>4 使用索引的规范</h2><h2 id="MySQL索引规范"><a href="#MySQL索引规范" class="headerlink" title="MySQL索引规范"></a>MySQL索引规范</h2><ol>
+<h2><span id="4-shi-yong-suo-yin-de-gui-fan">4 使用索引的规范</span><a href="#4-shi-yong-suo-yin-de-gui-fan" class="header-anchor">#</a></h2><h2><span id="mysql-suo-yin-gui-fan">MySQL索引规范</span><a href="#mysql-suo-yin-gui-fan" class="header-anchor">#</a></h2><ol>
 <li>在常用的查询中使用索引</li>
 <li>尽量使用覆盖索引，即在索引中包含查询所需的所有列，以避免回表操作。</li>
 <li>遵循最左前缀原则</li>
 </ol>
-<h2 id="什么情况不建议使用索引"><a href="#什么情况不建议使用索引" class="headerlink" title="什么情况不建议使用索引"></a>什么情况不建议使用索引</h2><ol>
+<h2><span id="shi-me-qing-kuang-bu-jian-yi-shi-yong-suo-yin">什么情况不建议使用索引</span><a href="#shi-me-qing-kuang-bu-jian-yi-shi-yong-suo-yin" class="header-anchor">#</a></h2><ol>
 <li>where、group by、order by用不到的字段不加索引</li>
 <li>大量重复数据不建索引，例如性别</li>
 <li>谨慎为经常更新的表创建过多索引</li>
 <li>不建议使用无序的值作为索引</li>
 <li>数据量小的表最好不要使用索引，少于1000个</li>
 </ol>
-<h1 id="二、特性"><a href="#二、特性" class="headerlink" title="二、特性"></a>二、特性</h1><h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h2><p>InnoDB的默认级别是可重复读。<br> InnoDB的MVCC和next-key lock 可以避免幻读产生，已经可以完全保证事务的隔离性要求，达到可串行化的效果，并且不会有可串行化的更多的锁的性能损失。</p>
+<h1><span id="er-te-xing">二、特性</span><a href="#er-te-xing" class="header-anchor">#</a></h1><h2><span id="innodb">InnoDB</span><a href="#innodb" class="header-anchor">#</a></h2><p>InnoDB的默认级别是可重复读。<br> InnoDB的MVCC和next-key lock 可以避免幻读产生，已经可以完全保证事务的隔离性要求，达到可串行化的效果，并且不会有可串行化的更多的锁的性能损失。</p>
 <ul>
 <li>事物的原子性是通过undo log来保证。</li>
 <li>事务的隔离性是通过读写锁 + MVCC机制来实现的。</li>
 <li>事务的持久性是通过redo log来实现的。</li>
 </ul>
-<h2 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h2><p>MVCC是多版本并发控制，是InnoDB在可重复读隔离级别下事务的实现方式。<br> 一般情况下读读不需要锁，读写、写写都需要锁。用了MVCC后，在读写时不需要加锁，但可能读到历史数据。<br> MVCC实现基于：隐式字段、undo log、read view。</p>
-<h2 id="undo-log"><a href="#undo-log" class="headerlink" title="undo log"></a>undo log</h2><ul>
+<h2><span id="mvcc">MVCC</span><a href="#mvcc" class="header-anchor">#</a></h2><p>MVCC是多版本并发控制，是InnoDB在可重复读隔离级别下事务的实现方式。<br> 一般情况下读读不需要锁，读写、写写都需要锁。用了MVCC后，在读写时不需要加锁，但可能读到历史数据。<br> MVCC实现基于：隐式字段、undo log、read view。</p>
+<h2><span id="undo-log">undo log</span><a href="#undo-log" class="header-anchor">#</a></h2><ul>
 <li>生成时间<ul>
 <li>事务开始之前</li>
 </ul>
@@ -145,7 +207,7 @@
 </li>
 <li>对同一行加锁时，undolog是链表，新的会放在旧的前边。</li>
 </ul>
-<h2 id="redo-log"><a href="#redo-log" class="headerlink" title="redo log"></a>redo log</h2><ul>
+<h2><span id="redo-log">redo log</span><a href="#redo-log" class="header-anchor">#</a></h2><ul>
 <li>生成时间<ul>
 <li>事物开始之后（由于事物两阶段提交的原因，redolog会在事物执行过程中产生）</li>
 </ul>
@@ -159,7 +221,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="两阶段提交协议"><a href="#两阶段提交协议" class="headerlink" title="两阶段提交协议"></a>两阶段提交协议</h2><ul>
+<h2><span id="liang-jie-duan-ti-jiao-xie-yi">两阶段提交协议</span><a href="#liang-jie-duan-ti-jiao-xie-yi" class="header-anchor">#</a></h2><ul>
 <li>准备阶段<ul>
 <li>协调者向参与者发起指令、参与者评估自己的状态。如果参与者评估指令可以完成，则会写undolog。然后锁定资源，执行操作，但是并不提交。</li>
 </ul>
@@ -170,7 +232,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="三、架构、引擎"><a href="#三、架构、引擎" class="headerlink" title="三、架构、引擎"></a>三、架构、引擎</h1><h2 id="1-基础架构"><a href="#1-基础架构" class="headerlink" title="1 基础架构"></a>1 基础架构</h2><h3 id="MySQL如何执行一条SQL"><a href="#MySQL如何执行一条SQL" class="headerlink" title="MySQL如何执行一条SQL"></a>MySQL如何执行一条SQL</h3><ol>
+<h1><span id="san-jia-gou-yin-qing">三、架构、引擎</span><a href="#san-jia-gou-yin-qing" class="header-anchor">#</a></h1><h2><span id="1-ji-chu-jia-gou">1 基础架构</span><a href="#1-ji-chu-jia-gou" class="header-anchor">#</a></h2><h3><span id="mysql-ru-he-zhi-xing-yi-tiao-sql">MySQL如何执行一条SQL</span><a href="#mysql-ru-he-zhi-xing-yi-tiao-sql" class="header-anchor">#</a></h3><ol>
 <li>客户端发起请求</li>
 <li>连接器（验证用户身份，给予权限）</li>
 <li>查询缓存（存在缓存则直接返回，不存在则执行后续操作）</li>
@@ -179,21 +241,21 @@
 <li>执行器（执行时会先看用户是否有执行权限，有才去使用这个引擎提供的接口）</li>
 <li>去存储引擎获取数据返回（如果开启查询缓存则会缓存查询结果）</li>
 </ol>
-<h2 id="2-存储引擎"><a href="#2-存储引擎" class="headerlink" title="2 存储引擎"></a>2 存储引擎</h2><p>存储引擎基于表，而不是数据库（比如同一个库下，a表是InnoDB，b表是MyISAM）。<br> 默认InnoDB。</p>
-<h3 id="2-1-MyISAM和InnoDB的区别"><a href="#2-1-MyISAM和InnoDB的区别" class="headerlink" title="2.1 MyISAM和InnoDB的区别"></a>2.1 MyISAM和InnoDB的区别</h3><ol>
+<h2><span id="2-cun-chu-yin-qing">2 存储引擎</span><a href="#2-cun-chu-yin-qing" class="header-anchor">#</a></h2><p>存储引擎基于表，而不是数据库（比如同一个库下，a表是InnoDB，b表是MyISAM）。<br> 默认InnoDB。</p>
+<h3><span id="2-1-myisam-he-innodb-de-qu-bie">2.1 MyISAM和InnoDB的区别</span><a href="#2-1-myisam-he-innodb-de-qu-bie" class="header-anchor">#</a></h3><ol>
 <li>MyISAM只支持表级锁，InnoDB还支持行级锁，默认为行级锁</li>
 <li>MyISAM不支持事物，InnoDB支持事物，默认可重复读。这个级别下解决幻读，是基于MVCC和Next-Key LOCK实现的。</li>
 <li>MyISAM不支持外键，InnoDB支持使用外键。但是一般情况下使用外键概念必须在应用层解决。</li>
 <li>InnoDB的redo log支持崩溃后的恢复，MyISAM不支持</li>
 <li>InnoDB支持MVCC，减少加锁操作，提高性能。</li>
 </ol>
-<h1 id="四、基本原理"><a href="#四、基本原理" class="headerlink" title="四、基本原理"></a>四、基本原理</h1><h2 id="事物的特性（ACID）"><a href="#事物的特性（ACID）" class="headerlink" title="事物的特性（ACID）"></a>事物的特性（ACID）</h2><ul>
+<h1><span id="si-ji-ben-yuan-li">四、基本原理</span><a href="#si-ji-ben-yuan-li" class="header-anchor">#</a></h1><h2><span id="shi-wu-de-te-xing-acid">事物的特性（ACID）</span><a href="#shi-wu-de-te-xing-acid" class="header-anchor">#</a></h2><ul>
 <li>原子性：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚到事务开始前的状态，就像这个事务从来没有被执行过一样。</li>
 <li>一致性：执行事务前后，数据库的完整性没有被破坏，写入的内容必须完全符合所有的预设规则。例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的。</li>
 <li>隔离性： 并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的。</li>
 <li>持久性： 一个事务被提交之后，对数据的修改就是永久的，即便系统故障也不会丢失。</li>
 </ul>
-<h2 id="脏读、幻读、不可重复读"><a href="#脏读、幻读、不可重复读" class="headerlink" title="脏读、幻读、不可重复读"></a>脏读、幻读、不可重复读</h2><ul>
+<h2><span id="zang-du-huan-du-bu-ke-chong-fu-du">脏读、幻读、不可重复读</span><a href="#zang-du-huan-du-bu-ke-chong-fu-du" class="header-anchor">#</a></h2><ul>
 <li>脏读：读取到了未提交的事务数据。</li>
 <li>不可重复读：在同一事务中，两次查询同一个记录得到的结果不一致。</li>
 <li>幻读：在同一事务中，两次查询同一范围，后一次查询看到了前一次查询没有看到的行。</li>
@@ -211,7 +273,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="事物隔离级别"><a href="#事物隔离级别" class="headerlink" title="事物隔离级别"></a>事物隔离级别</h2><ul>
+<h2><span id="shi-wu-ge-chi-ji-bie">事物隔离级别</span><a href="#shi-wu-ge-chi-ji-bie" class="header-anchor">#</a></h2><ul>
 <li>未提交读：事务中发生了修改，即使没有提交，其他事务也是可见的。<ul>
 <li>可能会导致脏读、幻读或不可重复读。</li>
 </ul>
@@ -230,7 +292,7 @@
 </li>
 </ul>
 <p>InnoDB的默认级别是可重复读。<br> InnoDB的MVCC和next-key lock 可以避免幻读产生，已经可以完全保证事务的隔离性要求，达到可串行化的效果，并且不会有可串行化的更多的锁的性能损失。</p>
-<h1 id="五、锁"><a href="#五、锁" class="headerlink" title="五、锁"></a>五、锁</h1><ul>
+<h1><span id="wu-suo">五、锁</span><a href="#wu-suo" class="header-anchor">#</a></h1><ul>
 <li>行级锁、表级锁：行级锁开销大，冲突少，会死锁。表级锁开销小，冲突大，不会死锁</li>
 <li>共享锁、排他锁</li>
 <li>乐观锁、悲观锁</li>
@@ -240,11 +302,11 @@
 </li>
 <li>gap lock间隙锁</li>
 </ul>
-<h1 id="六、使用"><a href="#六、使用" class="headerlink" title="六、使用"></a>六、使用</h1><h2 id="SQL执行的慢的原因和解决方法"><a href="#SQL执行的慢的原因和解决方法" class="headerlink" title="SQL执行的慢的原因和解决方法"></a>SQL执行的慢的原因和解决方法</h2><h3 id="该SQL偶尔执行慢"><a href="#该SQL偶尔执行慢" class="headerlink" title="该SQL偶尔执行慢"></a>该SQL偶尔执行慢</h3><ol>
+<h1><span id="liu-shi-yong">六、使用</span><a href="#liu-shi-yong" class="header-anchor">#</a></h1><h2><span id="sql-zhi-xing-de-man-de-yuan-yin-he-jie-jue-fang-fa">SQL执行的慢的原因和解决方法</span><a href="#sql-zhi-xing-de-man-de-yuan-yin-he-jie-jue-fang-fa" class="header-anchor">#</a></h2><h3><span id="gai-sql-ou-er-zhi-xing-man">该SQL偶尔执行慢</span><a href="#gai-sql-ou-er-zhi-xing-man" class="header-anchor">#</a></h3><ol>
 <li>在刷新脏页，redo log写满了需要直接写入磁盘</li>
 <li>执行的时候遇到了锁</li>
 </ol>
-<h3 id="该SQL一直执行慢"><a href="#该SQL一直执行慢" class="headerlink" title="该SQL一直执行慢"></a>该SQL一直执行慢</h3><ol>
+<h3><span id="gai-sql-yi-zhi-zhi-xing-man">该SQL一直执行慢</span><a href="#gai-sql-yi-zhi-zhi-xing-man" class="header-anchor">#</a></h3><ol>
 <li>没有用上索引，加索引、查看是否是对字段进行运算、函数，导致未用上索引。</li>
 <li>数据库自己选错了索引，可以用index某列强制走索引。</li>
 </ol>
@@ -254,12 +316,12 @@
     
 </div>
     <div class="footer" id="footer">
-    <p><h4>版权所有 © 2020 | 作者: 毕成 | 主题 By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
+    <p><h4>Copyright © 2020 | Author: 毕成 | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
     
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站浏览总访问量: <span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
         <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">本站访问人数: <span id="busuanzi_value_site_uv"></span></span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
     
     <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
         <input type="checkbox" name="switch" id="update_style">

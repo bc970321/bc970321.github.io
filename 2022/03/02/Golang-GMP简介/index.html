@@ -33,23 +33,37 @@
         <hr>
     </div>
     <div class="post-content">
-        <p>当我们需要处理大规模数据并发任务时，Golang 是一个不错的选择。Golang 在标准库中提供了一种称为 GMP（Goroutine、Channel、Mutex、Package）的并发编程模型，是 Golang 强大的并发编程能力的核心。本文将为您介绍 Golang 中的 GMP 并发编程模型。</p>
-<h2 id="Goroutine"><a href="#Goroutine" class="headerlink" title="Goroutine"></a>Goroutine</h2><p>Goroutine 是 Golang 中的轻量级线程，由 Go 运行时（Go runtime）管理。Goroutine 能够并发执行，通过 go 关键字来创建。Goroutine 的启动和销毁开销很小，可以轻松地创建大量的 Goroutine。</p>
+        <div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#goroutine">Goroutine</a></li>
+<li><a href="#channel">Channel</a></li>
+<li><a href="#mutex">Mutex</a></li>
+<li><a href="#package">Package</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<p>当我们需要处理大规模数据并发任务时，Golang 是一个不错的选择。Golang 在标准库中提供了一种称为 GMP（Goroutine、Channel、Mutex、Package）的并发编程模型，是 Golang 强大的并发编程能力的核心。本文将为您介绍 Golang 中的 GMP 并发编程模型。</p>
+<h2><span id="goroutine">Goroutine</span><a href="#goroutine" class="header-anchor">#</a></h2><p>Goroutine 是 Golang 中的轻量级线程，由 Go 运行时（Go runtime）管理。Goroutine 能够并发执行，通过 go 关键字来创建。Goroutine 的启动和销毁开销很小，可以轻松地创建大量的 Goroutine。</p>
 <p>以下是一个使用 Goroutine 的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func say(s string) &#123;</span><br><span class="line">	for i := 0; i &lt; 5; i++ &#123;</span><br><span class="line">		time.Sleep(100 * time.Millisecond)</span><br><span class="line">		fmt.Println(s)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	go say(&quot;world&quot;)</span><br><span class="line">	say(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在上面的例子中，我们创建了两个 Goroutine：<code>say(&quot;world&quot;)</code> 和 <code>say(&quot;hello&quot;)</code>。它们会同时运行，打印出 “hello” 和 “world”，直到 <code>say(&quot;hello&quot;)</code> 执行完毕。</p>
-<h2 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h2><p>Channel 是 Golang 中用于 Goroutine 之间通信的机制。Channel 可以被用来在 Goroutine 之间传递数据，避免了竞态条件和锁的使用。</p>
+<h2><span id="channel">Channel</span><a href="#channel" class="header-anchor">#</a></h2><p>Channel 是 Golang 中用于 Goroutine 之间通信的机制。Channel 可以被用来在 Goroutine 之间传递数据，避免了竞态条件和锁的使用。</p>
 <p>以下是一个使用 Channel 的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func sum(s []int, c chan int) &#123;</span><br><span class="line">	sum := 0</span><br><span class="line">	for _, v := range s &#123;</span><br><span class="line">		sum += v</span><br><span class="line">	&#125;</span><br><span class="line">	c &lt;- sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	s := []int&#123;7, 2, 8, -9, 4, 0&#125;</span><br><span class="line">	c := make(chan int)</span><br><span class="line">	go sum(s[:len(s)/2], c)</span><br><span class="line">	go sum(s[len(s)/2:], c)</span><br><span class="line">	x, y := &lt;-c, &lt;-c</span><br><span class="line">	fmt.Println(x, y, x+y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在上面的例子中，我们创建了两个 Goroutine：<code>sum(s[:len(s)/2], c)</code> 和 <code>sum(s[len(s)/2:], c)</code>。它们会同时运行，将数组的一半加起来，并将结果传递到 Channel 中。在主函数中，我们通过 <code>&lt;-c</code> 从 Channel 中获取结果，并将两个结果相加。</p>
-<h2 id="Mutex"><a href="#Mutex" class="headerlink" title="Mutex"></a>Mutex</h2><p>Mutex 是 Golang 中用于多个 Goroutine 访问共享资源的机制。Mutex 可以确保同一时间只有一个 Goroutine 能够访问共享资源。</p>
+<h2><span id="mutex">Mutex</span><a href="#mutex" class="header-anchor">#</a></h2><p>Mutex 是 Golang 中用于多个 Goroutine 访问共享资源的机制。Mutex 可以确保同一时间只有一个 Goroutine 能够访问共享资源。</p>
 <p>以下是一个使用 Mutex 的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var (</span><br><span class="line">	sum int</span><br><span class="line">	mutex sync.Mutex</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func add(i int) &#123;</span><br><span class="line">	mutex.Lock()</span><br><span class="line">	sum += i</span><br><span class="line">	mutex.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i := 0; i &lt; 1000; i++ &#123;</span><br><span class="line">		go add(i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在上面的例子中，我们创建了 1000 个 Goroutine，每个 Goroutine 都会将一个数加到 <code>sum</code> 中。为了确保多个 Goroutine 不会同时访问 <code>sum</code>，我们使用 Mutex 来锁定 <code>sum</code>，以确保同一时间只有一个 Goroutine 能够访问 <code>sum</code>。</p>
-<h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h2><p>Package 是 Golang 中用于组织代码的机制。Golang 的标准库提供了大量的 Package，例如 io、net、http 等。我们也可以自己编写 Package 来组织自己的代码。</p>
+<h2><span id="package">Package</span><a href="#package" class="header-anchor">#</a></h2><p>Package 是 Golang 中用于组织代码的机制。Golang 的标准库提供了大量的 Package，例如 io、net、http 等。我们也可以自己编写 Package 来组织自己的代码。</p>
 <p>以下是一个自定义 Package 的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// greeting/greeting.go</span><br><span class="line">package greeting</span><br><span class="line"></span><br><span class="line">func Greet(name string) string &#123;</span><br><span class="line">	return &quot;Hello, &quot; + name + &quot;!&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -64,12 +78,12 @@
     
 </div>
     <div class="footer" id="footer">
-    <p><h4>版权所有 © 2020 | 作者: 毕成 | 主题 By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
+    <p><h4>Copyright © 2020 | Author: 毕成 | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
     
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站浏览总访问量: <span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
         <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">本站访问人数: <span id="busuanzi_value_site_uv"></span></span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
     
     <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
         <input type="checkbox" name="switch" id="update_style">
